@@ -156,3 +156,49 @@ function teamColors(teamName){
     }
 }
 
+function teamNames(){
+const game = gameObject()
+return [game.home.teamName, game.away.teamName]
+}
+
+function playerNumbers(teamName){
+    const game = gameObject();
+    const teams = [game.home, game.away];
+
+    for (const team of teams) {
+        if (team.teamName === teamName) {
+            return Object.values(team.players).map(player => player.number);
+        }
+    }
+}
+
+function playerStats(playerName) {
+    const game = gameObject();
+    const teams = [game.home, game.away];
+
+    for (const team of teams) {
+        if (team.players[playerName]) {
+            return team.players[playerName];
+        }
+    }
+}
+
+function bigShoeRebounds() {
+    const game = gameObject();
+    const teams = [game.home, game.away];
+    let largestShoe = -Infinity;
+    let reboundsForLargestShoe = 0;
+
+    for (const team of teams) {
+        for (const name in team.players) {
+            const player = team.players[name];
+
+            if (player.shoe > largestShoe) {
+                largestShoe = player.shoe;
+                reboundsForLargestShoe = player.rebounds;
+            }
+        }
+    }
+
+    return reboundsForLargestShoe;
+}
